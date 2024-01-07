@@ -1,3 +1,2 @@
-This a small project that I created in order to review a material from a webdev bootcamp I did last year. 
-I am in a process of getting a solid webdev knowledge. 
-The project is about going through MongoDB, utilizing mongoose. 
+This is a small project that I created in order to review material from a webdev bootcamp I did last year.  
+The project is about how to organize folders and have a nice and organized code, precisely about MVC pattern.  
