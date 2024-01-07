@@ -1,10 +1,11 @@
 const express = require('express');
-const { create } = require('hbs');
+const { friendCreate, shortForm } = require('./controllers/functions');
 const mongoose = require('mongoose');
-
-const  { Friend }  = require('./models/Friends');
-
 const app = express();
+const hbs = require('hbs');
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
 
 mongoose.connect('mongodb://127.0.0.1:27017/express-mongo')
 .then((x) => 
@@ -12,23 +13,17 @@ mongoose.connect('mongodb://127.0.0.1:27017/express-mongo')
 )
 .catch((err) => console.error('Error connecting to mongo', err));
 
-app.post('/friends/:firstName/:lastName/:age', (req, res) => {
-    const firstName = req.params.firstName;
-    const lastName = req.params.lastName;
-    const age = req.params.age;
 
-    const friend = new Friend({ firstName: firstName, lastName: lastName, age: age });
-    friend.save()
-        .then((newFriend) => {
-            console.log(`Friend saved: ${newFriend}`);
-            res.send(`Friend saved: ${newFriend}`);
-        })
-        .catch((err) => {
-            console.log(`Error: ${err}`)
-            res.send(`Error: ${err}`);
-        })
-        
+app.get('/', shortForm);
+
+app.get('/create-friend', friendCreate)
+
+app.post('/submit-friend', (req, res) => {
+    console.log(req.body);
+    res.send('Friend created');
 });
+
+
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
